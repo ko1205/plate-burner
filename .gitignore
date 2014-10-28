@@ -4,3 +4,17 @@ Thumbs.db
 
 #VIM swp
 *.swp
+
+#Project∆ƒ¿œ
+*.pro
+*.vcxproj
+*.filters
+*.opensdf
+*.sdf
+*.user
+*.sln
+*.suo
+*.pdb
+debug/
+release/
+ipch/

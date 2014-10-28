@@ -1,10 +1,10 @@
 #include <QApplication>
-#include <QLabel>
+#include "MainWindow.h"
 
 int main(int argc, char **argv)
 {
     QApplication app(argc,argv);
-    QLabel *label = new QLabel("init project");
-    label->show();
+    MainWindow mainWin;
+    mainWin.show();
     return app.exec();
 }
