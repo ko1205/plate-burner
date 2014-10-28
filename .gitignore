@@ -1,11 +1,11 @@
-#Âî²¨±â ÆÄÀÏ
+ï»¿#ì°Œêº¼ê¸° íŒŒì¼
 .DS_Store
 Thumbs.db
 
 #VIM swp
 *.swp
 
-#ProjectÆÄÀÏ
+#ProjectíŒŒì¼
 *.pro
 *.vcxproj
 *.filters
