@@ -1,13 +1,15 @@
-#include<QtGui>
+#include <QtGui>
 #include "MainWindow.h"
 
 MainWindow::MainWindow()
 {
-	QWidget *widget = new QWidget;
-	setCentralWidget(widget);
 	createAction();
 	createMenu();
 
+
+// Window 화면 설정
+    setWindowTitle(tr("test_window"));
+    resize(800,600);
 }
 
 MainWindow::~MainWindow()
@@ -22,4 +24,7 @@ void MainWindow::createAction()
 void MainWindow::createMenu()
 {
 	fileMenu = menuBar()->addMenu(tr("&File"));
+    fileMenu->addAction(newAction);
+
+    editMenu = menuBar()->addMenu(tr("&Edit"));
 }
