@@ -8,7 +8,9 @@ public:
     MainWindow();
     virtual ~MainWindow();
 private:
+    int rowCount;
     QAction *newAction;
+    QAction *copyAction;
 
     QMenu *fileMenu;
     QMenu *editMenu;
