@@ -7,7 +7,7 @@ class QApplication;
 class MainView;
 class MainModel;
 
-class ControlMain : QObject
+class ControlMain : public QObject
 {
     Q_OBJECT;
 

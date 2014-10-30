@@ -5,7 +5,7 @@
 
 class MainModel;
 
-class MainView : QObject
+class MainView : public QObject
 {
     Q_OBJECT;
 

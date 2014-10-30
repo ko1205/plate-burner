@@ -1,9 +1,10 @@
 #include <QtGui>
 #include "MainWindow.h"
+#include <iostream>
 
 MainWindow::MainWindow()
 {
-    QCheckBox *button = new QCheckBox("test");
+    QPushButton *button = new QPushButton("test");
     QTableWidget *table = new QTableWidget();
     table->setRowCount(30);
     table->setColumnCount(20);
@@ -20,6 +21,8 @@ MainWindow::MainWindow()
 // Window 화면 설정
     setWindowTitle(tr("test_window"));
     resize(800,600);
+
+    connect(button,SIGNAL(clicked()),this,SLOT(test()));
 }
 
 MainWindow::~MainWindow()
@@ -39,4 +42,9 @@ void MainWindow::createMenu()
 
     editMenu = menuBar()->addMenu(tr("&Edit"));
     editMenu -> addAction(copyAction);
+}
+
+void MainWindow::test()
+{
+    std::cout<<"test\n";
 }

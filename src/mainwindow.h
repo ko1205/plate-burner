@@ -20,6 +20,10 @@ private:
 
     void createAction();
     void createMenu();
+
+    public slots:
+        void test();
+
 };
 
 #endif

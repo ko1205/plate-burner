@@ -3,7 +3,7 @@
 
 #include <QObject>
 
-class MainModel : QObject
+class MainModel : public QObject
 {
     Q_OBJECT;
 
