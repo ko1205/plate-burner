@@ -1,3 +1,6 @@
+#ifndef MAINWINDOW_H
+#define MAINWINDOW_H
+
 #include <QMainWindow>
 
 class MainWindow : public QMainWindow
@@ -18,3 +21,5 @@ private:
     void createAction();
     void createMenu();
 };
+
+#endif
