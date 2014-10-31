@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 
+class QTableWidget;
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -10,6 +12,7 @@ class MainWindow : public QMainWindow
 public:
     MainWindow();
     virtual ~MainWindow();
+    QTableWidget *table;
 private:
     int rowCount;
     QAction *newAction;

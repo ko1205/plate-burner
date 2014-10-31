@@ -4,6 +4,7 @@
 #include <QObject>
 
 class MainModel;
+class MainWindow;
 
 class MainView : public QObject
 {
@@ -15,6 +16,7 @@ public:
     void show();
 private:
     MainModel *model;
+    MainWindow *mainWin;
 
 };
 

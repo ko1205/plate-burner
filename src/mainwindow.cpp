@@ -1,11 +1,12 @@
 #include <QtGui>
 #include "MainWindow.h"
 #include <iostream>
+#include <QDir>
 
 MainWindow::MainWindow()
 {
     QPushButton *button = new QPushButton("test");
-    QTableWidget *table = new QTableWidget();
+    table = new QTableWidget();
     table->setRowCount(30);
     table->setColumnCount(20);
     table->setColumnWidth(0,200);
@@ -47,4 +48,9 @@ void MainWindow::createMenu()
 void MainWindow::test()
 {
     std::cout<<"test\n";
+    QDir dir("E:/");
+//    QString testStr;
+    foreach (QString testStr, dir.entryList())
+        std::cout << testStr.toStdString() << "\n";  
+//    std::cout << dir.entryList().join("\n").toStdString();
 }
