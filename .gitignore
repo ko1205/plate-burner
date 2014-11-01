@@ -18,3 +18,11 @@ Thumbs.db
 debug/
 release/
 ipch/
+*.xcodeproj/
+info.plist
+
+#object 파일
+*.o
+*.O
+
+*.app/
