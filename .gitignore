@@ -26,3 +26,6 @@ info.plist
 *.O
 
 *.app/
+
+#test 용 
+src/test_code/thumnail/
