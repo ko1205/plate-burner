@@ -12,6 +12,9 @@ class myTableModel : public QAbstractTableModel
         QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
 
 		Qt::ItemFlags flags(const QModelIndex &index) const;
+
+        void setmyTableModleMap(const QMap<int,QMap<QString,QString>> &map);
+
     private:
-        QMap<int,QMap<QString,QString>> temp;
+        QMap<int,QMap<QString,QString>> myModelMap;
 };

@@ -3,7 +3,8 @@
 #include <QTableView>
 #include "tablemodel.h"
 #include <qmap.h>
-#include <QModelIndex>
+//#include <QModelIndex>
+//#include <QHBoxLayout>
 
 MainWindow::MainWindow()
 {
@@ -15,8 +16,13 @@ MainWindow::MainWindow()
         table->setRowHeight(i,150);
     }
     table->setColumnWidth(0,200);
+    table->resize(800,900);
 //    QMap<QString,int>::
 //    setCentralWidget(sheetview);
+    //QWidget *test = new QWidget();
+    //QHBoxLayout *layout = new QHBoxLayout();
+    //layout->addWidget(table);
+    //test->setLayout(layout);
     setCentralWidget(table);
 }
 

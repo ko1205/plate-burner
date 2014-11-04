@@ -4,16 +4,24 @@
 
 myTableModel::myTableModel(QObject *parent) : QAbstractTableModel(parent)
 {
+    //for (int  i = 0; i<10 ;i++){
+    //    QMap<QString,QString> temp;
+    //    temp.insert("test01","");
+    //    temp.insert("test02","002");
+    //    temp.insert("test03","003");
+    //    temp.insert("test04","004");
+    //    myModelMap.insert(i,temp);
+    //}
 }
 
 int myTableModel::rowCount(const QModelIndex &parent) const
 {
-    return 5;
+    return myModelMap.count();
 }
 
 int myTableModel::columnCount(const QModelIndex &parent) const
 {
-    return 8;
+    return myModelMap[0].count();
 }
 
 QVariant myTableModel::data(const QModelIndex &index, int role) const
@@ -27,7 +35,7 @@ QVariant myTableModel::data(const QModelIndex &index, int role) const
     }else if (role == Qt::TextAlignmentRole){
         return int(Qt::AlignLeft | Qt::AlignVCenter);
     } else if (role == Qt::DisplayRole){
-	    return QString(tr("test")); 
+	    return QString(tr("test\nkkkk")); 
     }
     return QVariant();
 }
@@ -37,19 +45,10 @@ QVariant myTableModel::headerData(int section, Qt::Orientation orientation, int 
 {
     if (orientation == Qt::Horizontal){
         if(role == Qt::DisplayRole){
-            return QString(tr("horizontal"));
-        //}else if(role == Qt::SizeHintRole){
-        //    return QSize(1200,50);
+            return (myModelMap.begin().value().begin() + section).key();
         }
-    }else {
-    //    if(role == Qt::DisplayRole){
-    //        return QString(tr("Vertical"));
-    //    //}else if(role == Qt::SizeHintRole){
-    //    //    return QSize(100,300);
-    //    }
-        return QAbstractTableModel::headerData(section,orientation,role);
     }
-    return QVariant();
+    return QAbstractTableModel::headerData(section,orientation,role);
 }
 
 Qt::ItemFlags myTableModel::flags(const QModelIndex &index) const
@@ -57,4 +56,9 @@ Qt::ItemFlags myTableModel::flags(const QModelIndex &index) const
     Qt::ItemFlags flags = QAbstractItemModel::flags(index);
     flags |= Qt::ItemIsEditable;
     return flags;
+}
+
+void myTableModel::setmyTableModleMap(const QMap<int,QMap<QString,QString>> &map)
+{
+    myModelMap = map;
 }
