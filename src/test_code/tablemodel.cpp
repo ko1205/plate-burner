@@ -4,14 +4,14 @@
 
 myTableModel::myTableModel(QObject *parent) : QAbstractTableModel(parent)
 {
-    //for (int  i = 0; i<10 ;i++){
-    //    QMap<QString,QString> temp;
-    //    temp.insert("test01","");
-    //    temp.insert("test02","002");
-    //    temp.insert("test03","003");
-    //    temp.insert("test04","004");
-    //    myModelMap.insert(i,temp);
-    //}
+    for (int  i = 0; i<10 ;i++){
+        QMap<QString,QString> temp;
+        temp.insert("test01","");
+        temp.insert("test02","002");
+        temp.insert("test03","003");
+        temp.insert("test04","004");
+        myModelMap.insert(i,temp);
+    }
 }
 
 int myTableModel::rowCount(const QModelIndex &parent) const
