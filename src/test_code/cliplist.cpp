@@ -1,22 +1,16 @@
 #include "cliplist.h"
-#include <QVBoxlayout>
-#include <QLabel>
-#include <QLineEdit>
-#include <QVBoxLayout>
-#include <QTableView>
+//#include <QVBoxlayout>
+//#include <QLabel>
+//#include <QLineEdit>
+//#include <QVBoxLayout>
+//#include <QTableView>
+//#include <QPushButton>
+#include <QtGui>
 #include "tablemodel.h"
 
 ClipList::ClipList(QWidget *parent,Qt::WindowFlags f)
 {
-    LineEdit = new QLineEdit("test_text_edit");
-    tableView = new QTableView();
-    model = new myTableModel();
-    tableView->setModel(model);
-    layout = new QVBoxLayout();
-    layout->addWidget(LineEdit);
-    layout->addWidget(tableView);
-    this->setLayout(layout);
-
+    setWin();
 }
 
 ClipList::~ClipList()
@@ -24,3 +18,31 @@ ClipList::~ClipList()
 
 }
 
+void ClipList::setRootPath(QString &Path)
+{
+    
+}
+
+void ClipList::findClip(QString path)
+{
+    QDir dir(path);
+    QDir::is
+    findClip(path);
+}
+
+void ClipList::setWin()
+{
+    LineEdit = new QLineEdit("test_text_edit");
+    button = new QPushButton("root path");
+    tableView = new QTableView();
+    model = new myTableModel();
+    tableView->setModel(model);
+    layout = new QVBoxLayout();
+    toplayout = new QHBoxLayout();
+    toplayout->addWidget(LineEdit);
+    toplayout->addWidget(button);
+    layout->addLayout(toplayout);
+    layout->addWidget(tableView);
+    this->setLayout(layout);
+
+}

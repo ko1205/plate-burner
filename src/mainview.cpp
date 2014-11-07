@@ -23,7 +23,8 @@ void MainView::show()
     mainWin->table->setSpan(3,3,2,2);
     
     mainWin->show();
-    QFileDialog dialog;
-    dialog.exec();
+ //   QFileDialog dialog;
+ //   dialog.exec();
+ //   mainWin->table->settdialog.getOpenFileName()
 
 };

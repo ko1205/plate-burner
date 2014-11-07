@@ -6,6 +6,7 @@
 MainWindow::MainWindow()
 {
     QPushButton *button = new QPushButton("test");
+    QLabel *test = new QLabel("test_text");
     table = new QTableWidget();
     table->setRowCount(30);
     table->setColumnCount(20);
@@ -48,7 +49,7 @@ void MainWindow::createMenu()
 void MainWindow::test()
 {
     std::cout<<"test\n";
-    QDir dir("E:/");
+    QDir dir("E:/test_images/dd");
 //    QString testStr;
     foreach (QString testStr, dir.entryList())
         std::cout << testStr.toStdString() << "\n";  
