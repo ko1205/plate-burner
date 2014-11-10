@@ -1,4 +1,4 @@
-#include <QtCore>
+﻿#include <QtCore>
 #include <iostream>
 
 void searchDir(QString path,const QStringList &nameFilters);
@@ -43,7 +43,7 @@ void searchSequence(QString path,const QString &ext)
     QDir dir(path);
     QStringList fileList;
     fileList = dir.entryList(QStringList(ext),QDir::NoDotAndDotDot|QDir::Files);
-    int tmp = fileList.count();
+//    int tmp = fileList.count();
     if (1 < fileList.count()){
         QString filename;
         while (!fileList.isEmpty()){
@@ -57,7 +57,7 @@ void searchSequence(QString path,const QString &ext)
                 foreach(tmp,filetmp)
                     rxa = rxa + "(\\D*)" + "(\\d+)?";                
                 rx.setPattern(rxa);
-                int pos = rx.indexIn(filename);
+//                /*int pos = */rx.indexIn(filename);
                 filetmp = rx.capturedTexts();
 
                 int Tnum = 0;
@@ -89,16 +89,16 @@ void searchSequence(QString path,const QString &ext)
                     }
                 }
                 if(0 == fileCount){
-                    std::cout << qPrintable(filename)<< " " << fileCount+1 << std::endl;
+                    std::cout << qPrintable(filename)<< " " << fileCount+100 << std::endl; // 시퀀스 형태의 파일이 하나만 존재
                 }else{
-                    std::cout << qPrintable(pattern)<< " " << fileCount+1 << std::endl;
+                    std::cout << qPrintable(pattern)<< " " << fileCount+1 << std::endl;  // 정상 적인 시퀀스 파일
                 }
             
             }else{
-            std::cout << qPrintable(path) << "/" << qPrintable(filename) << std::endl;
+            std::cout << qPrintable(path) << "/" << qPrintable(filename) << std::endl;  //파일 네임에 숫자가 없을때
             }
         }
     }else if (0 < fileList.count()){
-        std::cout << qPrintable(path) << "/" << qPrintable(fileList.first()) << std::endl;
+        std::cout << qPrintable(path) << "/" << qPrintable(fileList.first()) << std::endl;  //폴더에 해당 확장자 파일이 하나만 있을때
     }
 }
