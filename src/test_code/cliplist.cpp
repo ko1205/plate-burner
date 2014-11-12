@@ -25,14 +25,13 @@ void ClipList::setRootPath(QString &Path)
 
 void ClipList::findClip(QString path)
 {
-    QDir dir(path);
-    QDir::is
-    findClip(path);
+
 }
 
 void ClipList::setWin()
 {
-    LineEdit = new QLineEdit("test_text_edit");
+    QString test = QFileDialog::getExistingDirectory();
+    LineEdit = new QLineEdit(test);
     button = new QPushButton("root path");
     tableView = new QTableView();
     model = new myTableModel();

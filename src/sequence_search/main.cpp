@@ -57,7 +57,7 @@ void searchSequence(QString path,const QString &ext)
                 foreach(tmp,filetmp)
                     rxa = rxa + "(\\D*)" + "(\\d+)?";                
                 rx.setPattern(rxa);
-//                /*int pos = */rx.indexIn(filename);
+                /*int pos = */rx.indexIn(filename);
                 filetmp = rx.capturedTexts();
 
                 int Tnum = 0;

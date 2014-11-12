@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 //#include "sheetview.h"
 #include <QTableView>
+#include <QTableWidget>
 #include "tablemodel.h"
 #include <qmap.h>
 //#include <QModelIndex>
@@ -10,6 +11,7 @@ MainWindow::MainWindow()
 {
 //    sheetview = new SheetView();
     QTableView *table = new QTableView();
+//    QTableWidget *table = new QTableWidget();
     myTableModel *model = new myTableModel();
     table->setModel(model);
     for (int i=0;i < model->rowCount();i++){

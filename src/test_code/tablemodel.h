@@ -1,5 +1,14 @@
 #include <QAbstractTableModel>
 
+typedef struct _abc{
+    QString filepath;
+    QString filename;
+    int start;
+    int end;
+    int duration;
+//    QVector<int> missingframe;
+} abc;
+
 class myTableModel : public QAbstractTableModel
 {
     public:
@@ -17,4 +26,5 @@ class myTableModel : public QAbstractTableModel
 
     private:
         QMap<int,QMap<QString,QString>> myModelMap;
+        QString rootpath;
 };

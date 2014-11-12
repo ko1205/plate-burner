@@ -1,5 +1,5 @@
 #include "tablemodel.h"
-#include <QPushButton>
+#include <QPixmap>
 #include <iostream>
 
 myTableModel::myTableModel(QObject *parent) : QAbstractTableModel(parent)
@@ -16,6 +16,7 @@ myTableModel::myTableModel(QObject *parent) : QAbstractTableModel(parent)
 
 int myTableModel::rowCount(const QModelIndex &parent) const
 {
+
     return myModelMap.count();
 }
 
