@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QMdiArea>
 
 class QTableWidget;
 
@@ -13,6 +14,7 @@ public:
     MainWindow();
     virtual ~MainWindow();
     QTableWidget *table;
+    QMdiArea *mdi;
 private:
     int rowCount;
     QAction *newAction;

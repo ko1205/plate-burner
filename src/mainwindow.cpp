@@ -5,6 +5,9 @@
 
 MainWindow::MainWindow()
 {
+    createAction();
+	createMenu();
+    mdi = new QMdiArea();
     QPushButton *button = new QPushButton("test");
     QLabel *test = new QLabel("test_text");
     table = new QTableWidget();
@@ -16,9 +19,10 @@ MainWindow::MainWindow()
     }
     table->setCellWidget(0,0,button);
     table->setSortingEnabled(true);
-    setCentralWidget(table);
-	createAction();
-	createMenu();
+    setCentralWidget(mdi);
+    mdi->addSubWindow(table);
+    table->showMaximized();
+
 
 // Window 화면 설정
     setWindowTitle(tr("test_window"));
@@ -52,6 +56,6 @@ void MainWindow::test()
     QDir dir("E:/test_images/dd");
 //    QString testStr;
     foreach (QString testStr, dir.entryList())
-        std::cout << testStr.toStdString() << "\n";  
+        std::cout << qPrintable(testStr) << "\n";  
 //    std::cout << dir.entryList().join("\n").toStdString();
 }
