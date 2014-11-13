@@ -25,6 +25,7 @@ private:
 
     void createAction();
     void createMenu();
+    void createStatusBar();
 
     public slots:
         void test();

@@ -9,9 +9,10 @@ MainWindow::MainWindow()
 {
     createAction();
 	createMenu();
+    createStatusBar();
     mdi = new QMdiArea();
     setCentralWidget(mdi);
-    QTimer::singleShot(0,this,SLOT(test()));
+    QTimer::singleShot(300,this,SLOT(test()));
 
 
 
@@ -39,6 +40,11 @@ void MainWindow::createMenu()
 
     editMenu = menuBar()->addMenu(tr("&Edit"));
     editMenu -> addAction(copyAction);
+}
+
+void MainWindow::createStatusBar()
+{
+    statusBar()->addWidget(new QLabel("test"));
 }
 
 void MainWindow::test()

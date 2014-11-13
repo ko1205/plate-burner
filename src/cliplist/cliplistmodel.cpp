@@ -1,4 +1,4 @@
-#include "cliplistmodel.h"
+ï»¿#include "cliplistmodel.h"
 #include <QStringList>
 #include <QDir>
 
@@ -20,7 +20,7 @@ int ClipListModel::rowCount(const QModelIndex &parent) const
 
 int ClipListModel::columnCount(const QModelIndex &parent) const
 {
-    return 5;
+    return 6;
 }
 
 QVariant ClipListModel::data(const QModelIndex &index, int role) const
@@ -30,11 +30,19 @@ QVariant ClipListModel::data(const QModelIndex &index, int role) const
     if (role == Qt::TextAlignmentRole){
         return int(Qt::AlignRight | Qt::AlignVCenter);
     }else if (role == Qt::DisplayRole){
-        if(0 == index.column()){
+        switch(index.column())
+        {
+        case 1:
             return ClipInfo[index.row()].filename;
-        }else if(1 == index.column()){
+        case 2:
             return ClipInfo[index.row()].filepath;
-        }else{
+        case 3:
+            return ClipInfo[index.row()].duration;
+        case 4:
+            return ClipInfo[index.row()].start;
+        case 5:
+            return ClipInfo[index.row()].end;
+        default:
             return QVariant();
         }
     }
@@ -77,12 +85,20 @@ void ClipListModel::searchSequence(const QString path,const QString &ext)
     QDir dir(path);
     QStringList fileList;
     clipinfo tempinfo;
+    int start;
+    int end;
     fileList = dir.entryList(QStringList(ext),QDir::NoDotAndDotDot|QDir::Files);
     if (1 < fileList.count()){
         QString filename;
         while (!fileList.isEmpty()){
             filename = fileList.first();
             fileList.removeFirst();
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////ë‚˜ì¤‘ì— í•¨ìˆ˜ë¡œ ìž¬êµ¬ì„± ///////////////////////////////////////////
+            start = 0;
+            end = 0;
             QRegExp rx("\\d+");
             if(-1 != rx.indexIn(filename)){
                 QStringList filetmp = filename.split(rx);
@@ -98,9 +114,15 @@ void ClipListModel::searchSequence(const QString path,const QString &ext)
                 for (Tnum=filetmp.size()-1;Tnum>0;Tnum--){
                     QRegExp rxc("[\\d]+");
                     if(rxc.exactMatch(filetmp[Tnum])){
+                        start = end = filetmp[Tnum].toInt();
                         break;
                     }
                 }
+///////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
+               
+                
                 QString prefix("");
                 QString suffix("");
                 for (int i=1;i<filetmp.size();i++){
@@ -115,7 +137,11 @@ void ClipListModel::searchSequence(const QString path,const QString &ext)
                 int fileCount = 0;
                 while (-1 != fileList.indexOf(rx)){
                     for(int i=0;i<fileList.count();i++){
-                        if(rx.exactMatch(fileList[i])){
+ //                       if(rx.exactMatch(fileList[i])){
+                        if(-1 !=rx.indexIn(fileList[i])){
+                            QStringList aaa = rx.capturedTexts();
+                            start = (start > aaa[2].toInt()) ? aaa[2].toInt() : start;
+                            end = (end < aaa[2].toInt()) ? aaa[2].toInt() : end;
                             fileList.removeAt(i);
                             fileCount++;
                             break;
@@ -123,29 +149,71 @@ void ClipListModel::searchSequence(const QString path,const QString &ext)
                     }
                 }
                 if(0 == fileCount){
-//                    std::cout << qPrintable(filename)<< " " << fileCount+100 << std::endl; // ½ÃÄö½º ÇüÅÂÀÇ ÆÄÀÏÀÌ ÇÏ³ª¸¸ Á¸Àç
-                    tempinfo.filename=fileList.first();
+//                    std::cout << qPrintable(filename)<< " " << fileCount+100 << std::endl; // ì‹œí€€ìŠ¤ í˜•íƒœì˜ íŒŒì¼ì´ í•˜ë‚˜ë§Œ ì¡´ìž¬
+                    tempinfo.filename=filename;
                     tempinfo.filepath=path;
+                    tempinfo.duration = 1;
+                    tempinfo.start = start;
+                    tempinfo.end = end;
                     ClipInfo.append(tempinfo);
                 
                 }else{
-//                    std::cout << qPrintable(pattern)<< " " << fileCount+1 << std::endl;  // Á¤»ó ÀûÀÎ ½ÃÄö½º ÆÄÀÏ
+//                    std::cout << qPrintable(pattern)<< " " << fileCount+1 << std::endl;  // ì •ìƒ ì ì¸ ì‹œí€€ìŠ¤ íŒŒì¼
                     tempinfo.filename=pattern;
                     tempinfo.filepath=path;
+                    tempinfo.duration = fileCount+1;
+                    tempinfo.start = start;
+                     tempinfo.end = end;
                     ClipInfo.append(tempinfo);
                 }
             
             }else{
-//            std::cout << qPrintable(path) << "/" << qPrintable(filename) << std::endl;  //ÆÄÀÏ ³×ÀÓ¿¡ ¼ýÀÚ°¡ ¾øÀ»¶§
-                tempinfo.filename=fileList.first();
+//            std::cout << qPrintable(path) << "/" << qPrintable(filename) << std::endl;  //íŒŒì¼ ë„¤ìž„ì— ìˆ«ìžê°€ ì—†ì„ë•Œ
+                tempinfo.filename=filename;
                 tempinfo.filepath=path;
+                tempinfo.duration = 1;
+                tempinfo.start = start;
+                tempinfo.end = end;
                 ClipInfo.append(tempinfo);
             }
         }
     }else if (0 < fileList.count()){
-//        std::cout << qPrintable(path) << "/" << qPrintable(fileList.first()) << std::endl;  //Æú´õ¿¡ ÇØ´ç È®ÀåÀÚ ÆÄÀÏÀÌ ÇÏ³ª¸¸ ÀÖÀ»¶§
+//        std::cout << qPrintable(path) << "/" << qPrintable(fileList.first()) << std::endl;  //í´ë”ì— í•´ë‹¹ í™•ìž¥ìž íŒŒì¼ì´ í•˜ë‚˜ë§Œ ìžˆì„ë•Œ
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////ë‚˜ì¤‘ì— í•¨ìˆ˜ë¡œ ìž¬êµ¬ì„± ///////////////////////////////////////////
+        start = 0;
+        end = 0;
+        QRegExp rx("\\d+");
+        if(-1 != rx.indexIn(fileList.first())){
+            QStringList filetmp = fileList.first().split(rx);
+            QString tmp;
+            QString rxa("(\\d+)?");
+            foreach(tmp,filetmp)
+                rxa = rxa + "(\\D*)" + "(\\d+)?";                
+            rx.setPattern(rxa);
+            /*int pos = */rx.indexIn(fileList.first());
+            filetmp = rx.capturedTexts();
+
+            int Tnum = 0;
+            for (Tnum=filetmp.size()-1;Tnum>0;Tnum--){
+                QRegExp rxc("[\\d]+");
+                if(rxc.exactMatch(filetmp[Tnum])){
+                    start = end = filetmp[Tnum].toInt();
+                    break;
+                }
+            }
+        }
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
         tempinfo.filename=fileList.first();
         tempinfo.filepath=path;
+        tempinfo.duration = 1;
+        tempinfo.start = start;
+        tempinfo.end = end;
         ClipInfo.append(tempinfo);
+
     }
 }
