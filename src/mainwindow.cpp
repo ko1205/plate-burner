@@ -1,34 +1,25 @@
-#include <QtGui>
+ï»¿#include <QtGui>
 #include "MainWindow.h"
 #include <iostream>
 #include <QDir>
+#include "cliplist\cliplistwindow.h"
+#include <QTimer>
 
 MainWindow::MainWindow()
 {
     createAction();
 	createMenu();
     mdi = new QMdiArea();
-    QPushButton *button = new QPushButton("test");
-    QLabel *test = new QLabel("test_text");
-    table = new QTableWidget();
-    table->setRowCount(30);
-    table->setColumnCount(20);
-    table->setColumnWidth(0,200);
-    for(int i =0;i<30;i++){
-        table->setRowHeight(i,200);
-    }
-    table->setCellWidget(0,0,button);
-    table->setSortingEnabled(true);
     setCentralWidget(mdi);
-    mdi->addSubWindow(table);
-    table->showMaximized();
+    QTimer::singleShot(0,this,SLOT(test()));
 
 
-// Window È­¸é ¼³Á¤
+
+// Window í™”ë©´ ì„¤ì •
     setWindowTitle(tr("test_window"));
     resize(800,600);
 
-    connect(button,SIGNAL(clicked()),this,SLOT(test()));
+    //connect(button,SIGNAL(clicked()),this,SLOT(test()));
 }
 
 MainWindow::~MainWindow()
@@ -52,10 +43,9 @@ void MainWindow::createMenu()
 
 void MainWindow::test()
 {
-    std::cout<<"test\n";
-    QDir dir("E:/test_images/dd");
-//    QString testStr;
-    foreach (QString testStr, dir.entryList())
-        std::cout << qPrintable(testStr) << "\n";  
-//    std::cout << dir.entryList().join("\n").toStdString();
+    ClipListWindow *view = new ClipListWindow();
+    QMdiSubWindow *subwindow = mdi->addSubWindow(view);
+    subwindow->show();
+    view->showMaximized();
+
 }

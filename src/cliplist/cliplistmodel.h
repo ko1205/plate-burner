@@ -18,7 +18,7 @@ class ClipListModel : public QAbstractTableModel
     Q_OBJECT
 
 public:
-    ClipListModel(QObject *parent = 0);
+    ClipListModel(const QString &path,const QStringList &namefilter,QObject *parent = 0);
     ~ClipListModel();
     int rowCount(const QModelIndex &parent = QModelIndex() ) const;
     int columnCount(const QModelIndex &parent = QModelIndex() ) const;
@@ -27,6 +27,10 @@ public:
 
 private:
     QVector<clipinfo> ClipInfo;
+
+    void searchDir(const QString path,const QStringList &nameFilters);
+    void searchSequence(const QString path,const QString &ext);
+
 };
 
 #endif
