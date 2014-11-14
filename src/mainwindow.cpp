@@ -45,6 +45,7 @@ void MainWindow::createMenu()
 void MainWindow::createStatusBar()
 {
     statusBar()->addWidget(new QLabel("test"));
+    statusBar()->addWidget(new QProgressBar());
 }
 
 void MainWindow::test()
