@@ -41,7 +41,9 @@ void MainWindow::createMenu()
 void MainWindow::createStatusBar()
 {
     progressbar = new QProgressBar();
-    statusBar()->addWidget(new QLabel("test"),1);
+    QLabel *label = new QLabel("test");
+    label->setIndent(150);
+    statusBar()->addWidget(label,1);
     statusBar()->addWidget(progressbar);
 }
 
@@ -66,5 +68,5 @@ void MainWindow::NewFile()
 
 void MainWindow::StatusBarMessage(QString filename)
 {
-    statusBar()->showMessage(filename,0);
+    //statusBar()->showMessage(filename,0);
 }
