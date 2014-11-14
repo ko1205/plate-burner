@@ -18,6 +18,7 @@ class ClipListModel : public QAbstractTableModel
     Q_OBJECT
 
 public:
+    ClipListModel(QObject *parent = 0);
     ClipListModel(const QString &path,const QStringList &namefilter,QObject *parent = 0);
     ~ClipListModel();
     int rowCount(const QModelIndex &parent = QModelIndex() ) const;
@@ -25,10 +26,14 @@ public:
     QVariant data(const QModelIndex &index, int role=Qt::DisplayRole) const;
     QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
 
-private:
-    QVector<clipinfo> ClipInfo;
-
     void searchDir(const QString path,const QStringList &nameFilters);
+
+signals:
+
+    void readClip(QString filename);
+
+private:
+    QVector<clipinfo> ClipInfo;    
     void searchSequence(const QString path,const QString &ext);
 
 };

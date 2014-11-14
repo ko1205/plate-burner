@@ -10,7 +10,6 @@ class ClipListView : public QTableView
 public:
     ClipListView(QWidget *parent=0);
     ~ClipListView();
-
 };
 
 #endif

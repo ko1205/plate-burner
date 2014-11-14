@@ -2,6 +2,12 @@
 #include <QStringList>
 #include <QDir>
 
+ClipListModel::ClipListModel(QObject *parent)
+    :QAbstractTableModel(parent)
+{
+
+}
+
 ClipListModel::ClipListModel(const QString &path, const QStringList &namefilter, QObject *parent)
     :QAbstractTableModel(parent)
 {
@@ -28,7 +34,7 @@ QVariant ClipListModel::data(const QModelIndex &index, int role) const
     if (!index.isValid())
         return QVariant();
     if (role == Qt::TextAlignmentRole){
-        return int(Qt::AlignRight | Qt::AlignVCenter);
+        return int(Qt::AlignLeft | Qt::AlignVCenter);
     }else if (role == Qt::DisplayRole){
         switch(index.column())
         {
@@ -156,6 +162,7 @@ void ClipListModel::searchSequence(const QString path,const QString &ext)
                     tempinfo.start = start;
                     tempinfo.end = end;
                     ClipInfo.append(tempinfo);
+                    emit readClip(filename);
                 
                 }else{
 //                    std::cout << qPrintable(pattern)<< " " << fileCount+1 << std::endl;  // 정상 적인 시퀀스 파일
@@ -165,6 +172,7 @@ void ClipListModel::searchSequence(const QString path,const QString &ext)
                     tempinfo.start = start;
                      tempinfo.end = end;
                     ClipInfo.append(tempinfo);
+                    emit readClip(pattern);
                 }
             
             }else{
@@ -175,6 +183,8 @@ void ClipListModel::searchSequence(const QString path,const QString &ext)
                 tempinfo.start = start;
                 tempinfo.end = end;
                 ClipInfo.append(tempinfo);
+                emit readClip(filename);
+
             }
         }
     }else if (0 < fileList.count()){

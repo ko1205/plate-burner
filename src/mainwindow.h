@@ -2,9 +2,12 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QMdiArea>
+#include "cliplist/cliplistmodel.h"
 
 class QTableWidget;
+class QMdiArea;
+class QProgressBar;
+class ClipListWindow;
 
 class MainWindow : public QMainWindow
 {
@@ -15,21 +18,28 @@ public:
     virtual ~MainWindow();
     QTableWidget *table;
     QMdiArea *mdi;
+
 private:
     int rowCount;
     QAction *newAction;
-    QAction *copyAction;
+    QAction *openAction;
 
+    QAction *copyAction;
+    
     QMenu *fileMenu;
     QMenu *editMenu;
+
+    QProgressBar *progressbar;
+    ClipListModel *model;
 
     void createAction();
     void createMenu();
     void createStatusBar();
 
-    public slots:
-        void test();
-
+public slots:
+    void test();
+    void NewFile();
+    void StatusBarMessage(QString filename);
 };
 
 #endif
