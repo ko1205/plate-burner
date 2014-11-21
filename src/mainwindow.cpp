@@ -11,7 +11,7 @@ MainWindow::MainWindow()
     setCentralWidget(mdi);
 
 // Window 화면 설정
-    setWindowTitle(tr("test_window"));
+    setWindowTitle(tr("plate-burner"));
     resize(800,600);
 }
 
@@ -41,10 +41,9 @@ void MainWindow::createMenu()
 void MainWindow::createStatusBar()
 {
     progressbar = new QProgressBar();
-    QLabel *label = new QLabel("test");
-    label->setIndent(150);
-    statusBar()->addWidget(label,1);
-    statusBar()->addWidget(progressbar);
+    statusMessage = new QLabel("test");
+//    label->setIndent(150);
+    statusBar()->addWidget(statusMessage,1);
 }
 
 void MainWindow::test()
@@ -57,16 +56,18 @@ void MainWindow::test()
 
 void MainWindow::NewFile()
 {
-
+    statusBar()->addWidget(progressbar);
     model = new ClipListModel();
 
     connect(model,SIGNAL(readClip(QString)),this,SLOT(StatusBarMessage(QString)));
     model->searchDir(QFileDialog::getExistingDirectory().replace("\\","/"),QStringList("*.dpx"));
     QMdiSubWindow *subwin = mdi->addSubWindow(new ClipListWindow(model));
     subwin->showMaximized();
+    statusBar()->removeWidget(progressbar);
 }
 
 void MainWindow::StatusBarMessage(QString filename)
 {
-    //statusBar()->showMessage(filename,0);
+//    statusMessage->setText(filename);
+    statusBar()->showMessage(filename,0);
 }

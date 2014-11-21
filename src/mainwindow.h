@@ -8,7 +8,7 @@ class QTableWidget;
 class QMdiArea;
 class QProgressBar;
 class ClipListWindow;
-
+class QLabel;
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -31,6 +31,8 @@ private:
 
     QProgressBar *progressbar;
     ClipListModel *model;
+
+    QLabel *statusMessage;
 
     void createAction();
     void createMenu();

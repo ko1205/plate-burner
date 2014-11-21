@@ -1,6 +1,7 @@
 ﻿#include "cliplistmodel.h"
 #include <QStringList>
 #include <QDir>
+#include <QApplication>
 
 ClipListModel::ClipListModel(QObject *parent)
     :QAbstractTableModel(parent)
@@ -26,7 +27,7 @@ int ClipListModel::rowCount(const QModelIndex &parent) const
 
 int ClipListModel::columnCount(const QModelIndex &parent) const
 {
-    return 6;
+    return 7;
 }
 
 QVariant ClipListModel::data(const QModelIndex &index, int role) const
@@ -226,4 +227,5 @@ void ClipListModel::searchSequence(const QString path,const QString &ext)
         ClipInfo.append(tempinfo);
 
     }
+//    QApplication::processEvents();  //statusbar showMessage와 label의 setText함수 비교용(setText는 이벤트 발생으로 이함수없이 갱신 않됨)
 }
