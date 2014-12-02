@@ -3,6 +3,7 @@
 
 #include <QAbstractTableModel>
 #include <QVector>
+#include <QImage>
 
 typedef struct _clipinfo{
     QString filepath;
@@ -11,6 +12,7 @@ typedef struct _clipinfo{
     int end;
     int duration;
     QVector<int> missingframe;
+    QImage thumnail;
 } clipinfo;
 
 class ClipListModel : public QAbstractTableModel

@@ -2,6 +2,7 @@
 #include <QStringList>
 #include <QDir>
 #include <QApplication>
+#include "../dpxReader/dpxReader.h"
 
 ClipListModel::ClipListModel(QObject *parent)
     :QAbstractTableModel(parent)
@@ -34,7 +35,11 @@ QVariant ClipListModel::data(const QModelIndex &index, int role) const
 {
     if (!index.isValid())
         return QVariant();
-    if (role == Qt::TextAlignmentRole){
+    if (role == Qt::DecorationRole){
+        if (0 == index.column()){
+            return ClipInfo[index.row()].thumnail;
+        }
+    }else if (role == Qt::TextAlignmentRole){
         return int(Qt::AlignLeft | Qt::AlignVCenter);
     }else if (role == Qt::DisplayRole){
         switch(index.column())
@@ -92,6 +97,7 @@ void ClipListModel::searchSequence(const QString path,const QString &ext)
     QDir dir(path);
     QStringList fileList;
     clipinfo tempinfo;
+    DpxReader dpxfile; 
     int start;
     int end;
     fileList = dir.entryList(QStringList(ext),QDir::NoDotAndDotDot|QDir::Files);
@@ -162,6 +168,9 @@ void ClipListModel::searchSequence(const QString path,const QString &ext)
                     tempinfo.duration = 1;
                     tempinfo.start = start;
                     tempinfo.end = end;
+                    QString fullpaht = path + "/" + filename;
+                    dpxfile.setPath(fullpaht);
+                    tempinfo.thumnail = dpxfile.getQImage();
                     ClipInfo.append(tempinfo);
                     emit readClip(filename);
                 
@@ -171,7 +180,10 @@ void ClipListModel::searchSequence(const QString path,const QString &ext)
                     tempinfo.filepath=path;
                     tempinfo.duration = fileCount+1;
                     tempinfo.start = start;
-                     tempinfo.end = end;
+                    tempinfo.end = end;
+                    QString fullpaht = path + "/" + filename;
+                    dpxfile.setPath(fullpaht);
+                    tempinfo.thumnail = dpxfile.getQImage();
                     ClipInfo.append(tempinfo);
                     emit readClip(pattern);
                 }
@@ -183,6 +195,9 @@ void ClipListModel::searchSequence(const QString path,const QString &ext)
                 tempinfo.duration = 1;
                 tempinfo.start = start;
                 tempinfo.end = end;
+                QString fullpaht = path + "/" + filename;
+                dpxfile.setPath(fullpaht);
+                tempinfo.thumnail = dpxfile.getQImage();
                 ClipInfo.append(tempinfo);
                 emit readClip(filename);
 
@@ -224,6 +239,9 @@ void ClipListModel::searchSequence(const QString path,const QString &ext)
         tempinfo.duration = 1;
         tempinfo.start = start;
         tempinfo.end = end;
+        QString fullpaht = path + "/" + tempinfo.filename;
+        dpxfile.setPath(fullpaht);
+        tempinfo.thumnail = dpxfile.getQImage();
         ClipInfo.append(tempinfo);
 
     }

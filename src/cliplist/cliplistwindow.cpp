@@ -26,6 +26,10 @@ ClipListWindow::ClipListWindow(ClipListModel *model,QWidget *parent,Qt::WindowFl
     list->setItemDelegate(new ClipListDelegate);
     layout = new QVBoxLayout();
     layout->addWidget(list);
+    list->setColumnWidth(0,300);
+    for(int i = 0; i < model->rowCount();i++){
+        list->setRowHeight(i,150);
+    }
     this->setLayout(layout);
 }
 

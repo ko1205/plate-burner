@@ -8,5 +8,5 @@ DEPENDPATH += .
 INCLUDEPATH += .
 
 # Input
-HEADERS += DPXimage_Header.h
+HEADERS += DPXimage_Header.h dpxReader.h
 SOURCES += dpxReader.cpp
