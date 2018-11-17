@@ -3,7 +3,7 @@
 ######################################################################
 
 TEMPLATE = app
-TARGET = 
+TARGET = cliplist
 DEPENDPATH += . src/cliplist
 INCLUDEPATH += .
 
@@ -14,3 +14,4 @@ SOURCES += cliplistdelegate.cpp \
            cliplistview.cpp \
            cliplistwindow.cpp \
            test_main.cpp
+
