@@ -1,6 +1,15 @@
-﻿#include "MainWindow.h"
+﻿#include "mainwindow.h"
 #include "cliplist/cliplistwindow.h"
 #include <QtGui>
+#include <QMdiArea>
+#include <QAction>
+#include <QMenu>
+#include <QMenuBar>
+#include <QProgressBar>
+#include <QLabel>
+#include <QStatusBar>
+#include <QMdiSubWindow>
+#include <QFileDialog>
 
 MainWindow::MainWindow()
 {
