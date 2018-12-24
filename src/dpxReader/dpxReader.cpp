@@ -19,7 +19,7 @@ DpxReader::DpxReader()
 {
     FILE *f;
     DPXHeader dpxhd;
-    f = fopen("E:\\test_images\\dd\\a.a1.dpx","r");
+    f = fopen("/Users/ghchoi/storage/Data/test_images/A193_C003_0704V4_289/A193_C003_0704V4.0000289.dpx","r");
     fread(&dpxhd,sizeof(dpxhd),1,f);
     rewind(f);
     fseek(f,dpxhd.file.offset,SEEK_SET);
@@ -47,7 +47,7 @@ void DpxReader::setPath(QString &path)
         delete[] bits;
     FILE *f; 
     DPXHeader dpxhd;
-    QString Tpath = path.replace("/","\\");
+    QString Tpath = path;
     f = fopen(Tpath.toLocal8Bit(),"r");
     fread(&dpxhd,sizeof(dpxhd),1,f);
     rewind(f);
@@ -80,12 +80,15 @@ QImage DpxReader::getQImage()
     unsigned char *buff = image.bits();
     for(int i = 0; i < width*height;i++)
     {
-        bits[i] = ((bits[i]&0x00000FFC)>>4)|((bits[i]&0x003FC000)>>6)|((bits[i]&0xFF000000)>>8);
+        /*
+         * QImage의 Fromat_RGB32에서 0xFF000000 자리에 FF값이 Alpha 처럼 작동한다. 추가 해주지않으면 흰색으로 나옴;
+         */
+        bits[i] = ((bits[i]&0x00000FFC)>>4)|((bits[i]&0x003FC000)>>6)|((bits[i]&0xFF000000)>>8)|(0xFF000000);
     }
     //for(int y = 0; y < getHeight(); y++){
     //    for(int x = 0; x < getWidth(); x++){
     //        int index(y*getWidth() + x);
-    //        unsigned int temp = bits[index]; 
+    //        unsigned int temp = bits[index];
     //        image.setPixel(x,y,((temp&0x00000FFC)>>4)|((temp&0x003FC000)>>6)|((temp&0xFF000000)>>8));
     //    }
     //}
@@ -99,13 +102,14 @@ QImage DpxReader::getQImage()
 
 
 
-//int main(int argc,char **argv)
-//{
-//    QApplication app(argc,argv);
-//    DpxReader dpx;
-//    QLabel label;
-//    label.setPixmap(QPixmap::fromImage(dpx.getQImage()));
-//    label.show();
-//
-//    return app.exec();
-//}
+int main(int argc,char **argv)
+{
+    QApplication app(argc,argv);
+    DpxReader dpx;
+    QLabel label("test");
+    label.setPixmap(QPixmap::fromImage(dpx.getQImage()));
+//    label.setPixmap(QPixmap::fromImage(QImage("/Users/ghchoi/storage/Data/test_images/A193_C003_0704V4_289/JPEG/A193_C003_0704V4.0000289.jpg")));
+    label.show();
+
+    return app.exec();
+}
